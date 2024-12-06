@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="lastFragment"
+            type="String" />
+        <variable
+            name="list"
+            type="com.khan.fftracker.tracker.trackerDashboard.dataModel.Contract" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+
+<!--        app:imageUrlPicasso="@{list.customerImage}"-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUserMapPin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            app:imageUrlPicasso="@{list.customerImage}"
+            android:src="@drawable/battery_alert"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+
+            android:text='@{list.CustomerFName+" "+list.customerLName}'
+            android:textStyle="bold"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toEndOf="@+id/imgUserMapPin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvPlaceRegistered"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlaceRegistered"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text='@{list.places_register.equals("0")?"No places registered":list.places_register+" place registered"}'
+            android:visibility="visible"
+            android:textColor="@color/gray"
+
+            app:layout_constraintLeft_toLeftOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/imgArrow"
+
+            />
+
+<!--        android:onCheckedChanged="@{(switch, checked) -> viewModel.onCheckedChanged(checked)}"-->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/custom_thumb"
+            app:track="@drawable/custom_track"
+
+            android:checked='@{list.LowBatteryNotification.equals("0")? false:true, default=true}'
+
+            android:visibility='@{lastFragment.equals("BatteryAlert")? View.VISIBLE : View.GONE , default=gone }'
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_right_vector"
+            android:layout_marginRight="10dp"
+            android:visibility='@{lastFragment.equals("")? View.VISIBLE : View.GONE , default=visible }'
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

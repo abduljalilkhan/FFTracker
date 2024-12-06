@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="list"
+            type="com.khan.fftracker.tracker.friendPlaces.dataModel.Geofencelists" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_currentloc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgTracker"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:imageUrlPicasso="@{list.image}"
+                android:layout_gravity="center"
+
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--           -->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvFriendName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="@{list.geoTitle}"
+
+                app:layout_constraintStart_toEndOf="@+id/imgTracker"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvPlaceName"
+
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPlaceName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+                app:txtLat="@{list.lat.toString()}"
+                app:txtLng="@{list.lng.toString()}"
+                android:visibility='@{list.lat.equals("0")?View.GONE:View.VISIBLE,default=gone}'
+
+                android:textColor="@color/gray"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/tvFriendName"
+                app:layout_constraintTop_toBottomOf="@+id/tvFriendName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imgAlarm"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgAlarm"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/notifications_off_vector"
+                android:tint="@color/blue"
+
+                android:src='@{list.lat.equals("0")?@drawable/add_b:list.notificationOn.equals("1")?@drawable/notifications_vector:@drawable/notifications_off_vector}'
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

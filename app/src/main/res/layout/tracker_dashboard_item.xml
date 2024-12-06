@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="strOrientation"
+            type="String" />
+        <variable
+            name="list"
+            type="com.khan.fftracker.tracker.trackerDashboard.dataModel.Contract" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/transparent"
+
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
+
+        >
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUserMapPin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            app:imageUrlPicasso="@{list.customerImage}"
+            android:visibility="visible"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+
+            />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="25dp"
+            android:layout_height="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/imgUserMapPin"
+            app:layout_constraintRight_toRightOf="@+id/imgUserMapPin"
+            android:visibility="visible"
+            >
+
+
+            <ProgressBar
+                android:id="@+id/pb_VideoUpload"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:progress='@{list.battery==null?0:Integer.parseInt(list.battery.toString())}'
+                android:progressDrawable="@drawable/round_progressbar"
+                android:progressTint="@color/lightgreen"
+                android:secondaryProgressTint="@color/gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility='@{list.contractID.equals("0")?View.GONE:View.VISIBLE,default=visible}'
+
+                tools:targetApi="lollipop" />
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/timer_clock"
+            android:tint="@color/black"
+
+            android:visibility='@{list.contractID.equals("0")?View.VISIBLE:View.GONE,default=gone}'
+
+            app:layout_constraintTop_toBottomOf="@+id/imgUserMapPin"
+            app:layout_constraintEnd_toEndOf="@+id/imgUserMapPin"
+            app:layout_constraintStart_toStartOf="@+id/imgUserMapPin"
+            app:layout_constraintBottom_toBottomOf="@+id/imgUserMapPin"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutConstraint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgUserMapPin"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text='@{list.CustomerFName+" "+list.customerLName}'
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLocStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:addressName='@{"subLocal"}'
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+
+                app:txtLat="@{list.lat}"
+                app:txtLng="@{list.lng}"
+
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+
+                android:text="Pending"
+                android:textColor="@color/red"
+                android:visibility='@{list.contractID.equals("0")?View.VISIBLE:View.GONE,default=gone}'
+
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:rotation="180"
+                android:src="@drawable/arrow_left"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

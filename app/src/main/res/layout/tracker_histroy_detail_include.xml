@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.khan.fftracker.tracker.trackerHistory.viewModel.TrackerHistoryDetailVM" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/rnd_blue_top_left_right"
+        android:backgroundTint="@color/white"
+
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="120dp"
+
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/whitesmoke"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        android:padding="10dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            android:gravity="center_horizontal|center_vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility='@{viewModel.getListNotZero() == true ?View.VISIBLE:View.GONE,default=gone}'>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/circle_blue"
+                            android:textColor="@color/colorPrimary" />
+
+
+                        <com.khan.fftracker.commanStuff.RoundedDashView
+                            android:layout_width="12dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+
+                            android:paddingBottom="2dp"
+
+                            android:visibility="visible"
+                            app:dividerDashColor="@color/blue"
+                            app:dividerDashGap="5"
+                            app:dividerDashWidth="7"
+                            app:orientation="vertical" />
+
+
+
+<!--                        android:visibility='@{list.contractID.equals("0")?View.VISIBLE:View.GONE,default=gone}'-->
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+<!--                        android:text="2islamabce road i\n re islamabce road /n /n /n/ \n re islamabce \n road i re islamabce road i re\n"-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/map_icon"
+                            android:textColor="@color/colorPrimary"
+                            android:visibility="gone"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+
+                            app:txtLat='@{viewModel.getInitialLat() +""}'
+                            app:txtLng='@{viewModel.getInitialLng() +""}'
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDateTimeStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="@{viewModel.getListNotZero()==true?viewModel.getTrackerHistoryResponse().startdatetime:viewModel.getStartEndTime()}"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_vertical"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+
+                            />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:visibility='@{viewModel.getListNotZero() == true ?View.VISIBLE:View.GONE,default=gone}'
+
+                >
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/map_icon"
+                        android:textColor="@color/colorPrimary"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        app:txtLat='@{viewModel.getEndLat()+""}'
+                        app:txtLng='@{viewModel.getEndLng()+""}'
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDateTimeDest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text='@{viewModel.getTrackerHistoryResponse().enddatetime}'
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.khan.fftracker.tracker.friendsDetail.viewModel.FriendDetailTrackerVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="120dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:background="@drawable/rnd_blue_top_left_right"
+        android:backgroundTint="@color/white"
+        >
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                >
+                <!--            app:isUpDown="@{viewModel.hideShowView}"-->
+                <!--            app:showHideView="@{layoutFriends}"-->
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgShowHide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/arrow_down_drawer"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_Friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{viewModel.getFriendName()}"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgShowHide"
+                    />
+
+<!--                android:visibility='@{viewModel.strPrivacySetting.equals("3")? View.GONE : View.VISIBLE , default=gone }'-->
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/eyeslash"
+                    android:backgroundTint="@color/red"
+
+                    android:visibility='@{viewModel.locationUpdateResponse.data.contracts.privacySetting.equals("3")? View.GONE : View.VISIBLE , default=gone }'
+                    app:layout_constraintLeft_toRightOf="@+id/tv_Friend"
+                    app:layout_constraintTop_toTopOf="@+id/tv_Friend"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTrackLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    app:txtLat="@{viewModel.getLatitude().toString()}"
+                    app:txtLng="@{viewModel.getLongitude().toString()}"
+                    app:otherText='@{viewModel.locationUpdateResponse.data.contracts.privacySetting.equals("3")?null:"Hidden"}'
+                    android:textColor='@{viewModel.locationUpdateResponse.data.contracts.privacySetting.equals("3") ? @color/black : @color/red}'
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_Friend"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Friend"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTrackerKM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:drawableLeft="@drawable/call_time"
+                    android:drawablePadding="10dp"
+                    android:text="12629.9km"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+
+                    app:layout_constraintStart_toStartOf="@+id/tvTrackLocation"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTrackLocation"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTrackerSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/call_time"
+                    android:drawablePadding="10dp"
+                    android:visibility="gone"
+                    android:text="40m"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"
+
+                    app:layout_constraintStart_toEndOf="@+id/tvTrackerKM"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTrackLocation"
+
+                    />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutFriend"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/round_blue_xppoints"
+                    android:backgroundTint="@color/lightBluePlain"
+                    android:onClick="@{() -> viewModel.onNavigateFriendPlace()}"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTrackerSpeed"
+
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/start_map"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/place"
+                        android:lines="1"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dodgerblue" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layoutDistanceFriend"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/round_blue_xppoints"
+                    android:backgroundTint="@color/lightBluePlain"
+                    android:onClick="@{() -> viewModel.onNavigateMapDirection()}"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTrackerSpeed"
+
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/directions"
+                        android:tint="@color/blue"
+                        />
+<!--                    android:text="@{viewModel.locationUpdateResponse.data.contracts.distance}"-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{viewModel.locationUpdateResponse.data.contracts.privacySetting.equals("3")?viewModel.locationUpdateResponse.data.contracts.distance:"Direction"}'
+                        android:lines="1"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dodgerblue" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/main_screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_walkthrough_default"
+                android:backgroundTint="@color/gray"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+
+                android:onClick="@{() -> viewModel.onNavigateChat()}"
+                android:clickable="true"
+                android:focusable="true"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutFriend"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/etChatContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/zxing_transparent"
+                    android:text="@string/type_msg"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgChatContent_Send"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/img_excellent"
+                     />
+
+
+
+
+                <!--<ImageView-->
+                <!--android:id="@+id/imgChatContent_Send"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:src="@drawable/chatsend"-->
+                <!--/>-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/imgChatGallery"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/ic_menu_camera"-->
+                <!--android:layout_gravity="center" />-->
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
